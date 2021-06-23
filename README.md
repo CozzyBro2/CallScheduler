@@ -1,5 +1,5 @@
 # CallScheduler
-Roblox module that allows accurate scheduling of lua functions (calls) with more digestible syntax when compared to alternatives.
+Roblox module that allows accurate scheduling of Lua functions (calls) with more digestible syntax when compared to alternatives.
 
 ## Notes
 
