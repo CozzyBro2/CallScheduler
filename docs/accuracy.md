@@ -1,0 +1,3 @@
+## About Accuracy
+
+The elephant in the room, but also not really. It is definetly very important to know whether something is accurate or not, and to that I can tell you that there is not much measurable difference between the two. If you scheduled up something random 2 or 5 times for about 1 second and then compared the execution times, they'd probably be extremely close. Both of these check the current timestamp in relation to the date of their scheduled functions every frame, although obviously `wait()` is bounded to a minimum execution time of 0.03 which changes based on throttling conditions. And that's exactly the difference, throttling. That's why if you care so much about accuracy, you may prefer this module due to lack of throttling. 
