@@ -7,7 +7,7 @@ Roblox module that allows accurate scheduling of lua functions (calls) with more
 
 * Use the cool github pages site to read about this creation: https://cozzybro2.github.io/CallScheduler/ (W.I.P)
 
-* There are 2 versions of this module available, the normal version; `CallScheduler.lua` and the optimized version `OptimizedCallScheduler`. These are 2 seperate versions (may merge in the future) the optimized variant halves the time it takes to perform one time check. Some may consider this negligible, but because that halve could add up significantly in ridiculously large scales, i've chosen not to merge the two for the time being. And also because the OptimizedVersion uses a more complex 'mapped' approach to achieve the removal of the index.
+* There is a seperate version of this module available at: `src/OptimizedCallScheduler.lua` which implements a pretty minor, but additive optimization which can improve frametimes by not indexing the 'Call Date' for every scheduled function that is not ready to be called. In other words, if you're using this module on a significantly large scale, you should go with the optimized version. (Note that I may not maintain it as actively as the original)
 
 * This is not intended to be an 'end-all' replacement for default roblox functions, this module is new and many kinks in it's functionality may not have been yet discovered, or are in progress of being resolved. Support / reliability are provided on a 'best-effort' basis. By using this module you accept that I am not liable for any mishaps in gameplay that may arise from this fact.
 
@@ -87,7 +87,7 @@ Comparatively, my module's approach to this is a little bit less hidden. By defa
 
 # What performance / usability boost can I expect?
 
-`CallScheduler` is not oriented around a boost in performance. But 'calls' themselves in luaU are very fast, fast enough to outperform resuming yielded threads. (as of writing this. this also applies to `coroutine.wrap`)
+`CallScheduler` is not oriented around a boost in performance. But 'calls' themselves in LuaU are very fast, fast enough to outperform resuming yielded threads. (as of writing this. this also applies to `coroutine.wrap`)
 
 If anything, you may introduce a little bit of CPU complexity due to having two forms of scheduler running in the background (`wait()` and `CallScheduler`). But so long as `wait()` is not used by you, the difference should be negligible enough to not have to worry over. 
 
@@ -106,7 +106,7 @@ You could just do this:
 ```lua
 Scheduler.Add(2, ImportantFunction, Important, StillImportant)
 ```
-*small performance footnote here, the top method means that idiomatic method calls can be done, e.g: `SomeClass:Method(..)` which [luaU incorporates optimizations for](https://luau-lang.org/performance#fast-method-calls). Compared to the bottom method which is less explicit, so in rare cases you could be trading some performance for small amount of readability (saving construction of function literal)*
+*small performance footnote here, the top method means that idiomatic method calls can be done, e.g: `SomeClass:Method(..)` which [LuaU incorporates optimizations for](https://luau-lang.org/performance#fast-method-calls). Compared to the bottom method which is less explicit, so in rare cases you could be trading some performance for small amount of readability (saving construction of function literal)*
 
 This allows for slightly smaller code, which is often desirable for readability.
 
