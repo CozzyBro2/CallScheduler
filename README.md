@@ -6,16 +6,50 @@ Roblox module that allows accurate scheduling of lua functions (calls) with more
 Grab the source code from `src/CallScheduler.lua`, and put it in ReplicatedStorage. Then you can require it, and use the modules it exposes through the module table:
 
 
+`(function) Scheduler.Add(*Time: number, *Callback: function, ...)`
+
+`(function) Scheduler.Remove(*Callback: function) `
+
+`(number) Scheduler.Jitter = 0.005`
+
+Here is some example code:
+
 ```lua
-Functions:
+-- something normal
+local Scheduler = require(...)
 
-Scheduler.Add( number *Time, function *Callback, any ...)
+local function SomeFunction()
 
-Scheduler.Remove( function *Callback )
+end
 
-Properties:
+Scheduler.Add(2, SomeFunction) -- schedules 'SomeFunction' to be called 2 seconds from now.
+```
+```lua
+-- a recurring function (similar to while wait() do)
+local Scheduler = require(...)
 
-number Jitter = 0.005
+local function SomeFunction()
+    Scheduler.Add(2, SomeFunction)
+
+    -- Recurring task that happens every 2 seconds here.
+end
+
+Scheduler.Add(2, SomeFunction) -- schedules 'SomeFunction' to be called 2 seconds from now.
+
+-- after 5 seconds let's say
+
+Scheduler.Remove(SomeFunction) -- stops it from running anymore, can always be restarted by using the above function.
+```
+```
+-- a more hazardous example
+local Scheduler = require(...)
+
+local function YieldingFunction()
+    SomeLongHttpCall()
+end
+
+Scheduler.Add(2, coroutine.wrap(YieldingFunction)) -- 'YieldingFunction' may or may not yield, wrap it in a new coroutine just in case to isolate it from the rest of the thread.
+-- NOTE: Thread safety is not implemented in call scheduler, you will need to wrap anything that even has the potential to yield to guarantee execution time accuracy.
 ```
 
 ## Notes
