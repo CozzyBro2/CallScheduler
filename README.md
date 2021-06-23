@@ -4,11 +4,11 @@ Roblox module that allows accurate scheduling of lua functions (calls) with more
 ## Notes
 
 * Detached from `lua-stuff` for easy editing, and I felt it deserved it's own repo.
-* 
+
 * Use the cool github pages site to read about this creation: https://cozzybro2.github.io/CallScheduler/ (W.I.P)
-* 
+
 * There are 2 versions of this module available, the normal version; `CallScheduler.lua` and the optimized version `OptimizedCallScheduler`. These are 2 seperate versions (may merge in the future) the optimized variant halves the time it takes to perform one time check. Some may consider this negligible, but because that halve could add up significantly in ridiculously large scales, i've chosen not to merge the two for the time being. And also because the OptimizedVersion uses a more complex 'mapped' approach to achieve the removal of the index.
-* 
+
 * This is not intended to be an 'end-all' replacement for default roblox functions, this module is new and many kinks in it's functionality may not have been yet discovered, or are in progress of being resolved. Support / reliability are provided on a 'best-effort' basis. By using this module you accept that I am not liable for any mishaps in gameplay that may arise from this fact.
 
 # How do I use it?
