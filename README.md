@@ -1,11 +1,29 @@
 # CallScheduler
 Roblox module that allows accurate scheduling of lua functions (calls) with more digestible syntax when compared to alternatives.
 
+# How do I use it?
+
+Grab the source code from `src/CallScheduler.lua`, and put it in ReplicatedStorage. Then you can require it, and use the modules it exposes through the module table:
+
+`
+Functions:
+
+Scheduler.Add( number *Time, function *Callback, any ...)
+
+Scheduler.Remove( function *Callback )
+
+Properties:
+
+number Jitter = 0.005
+`
+
 ## Notes
 
 * Detached from `lua-stuff` for easy editing, and I felt it deserved it's own repo.
 * Use the cool github pages site to read about this creation: https://cozzybro2.github.io/CallScheduler/
 * If you care at all for some reason, this is intended to replace `delay()` moreso than it is to replace `wait()`.
+
+
 
 ## Why CallScheduler?
 
