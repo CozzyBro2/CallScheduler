@@ -1,4 +1,4 @@
-local Scheduled = {} -- { Info = os.clock }
+local Scheduled = {} -- { Callback = Info }
 local Scheduler = {Jitter = 0.005}
 
 game:GetService("RunService").Heartbeat:Connect(function()
