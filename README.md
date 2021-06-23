@@ -29,7 +29,7 @@ Scheduler.Add(2, SomeFunction) -- schedules 'SomeFunction' to be called 2 second
 local Scheduler = require(...)
 
 local function SomeFunction()
-    Scheduler.Add(2, SomeFunction)
+    Scheduler.Add(2, SomeFunction) -- re-scheduling itself.
 
     -- Recurring task that happens every 2 seconds here.
 end
