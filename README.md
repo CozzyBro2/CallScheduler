@@ -36,11 +36,14 @@ end
 
 Scheduler.Add(2, SomeFunction) -- schedules 'SomeFunction' to be called 2 seconds from now.
 
+
+
 -- after 5 seconds let's say
 
 Scheduler.Remove(SomeFunction) -- stops it from running anymore, can always be restarted by using the above function.
 ```
-```
+
+```lua
 -- a more hazardous example
 local Scheduler = require(...)
 
