@@ -171,7 +171,7 @@ This code does not have the redundant time check quirk, and if for whatever reas
 
 ## About Accuracy
 
-There is not much difference between `CallScheduler`, `wait()` and `delay()` in terms of accuracy. If you scheduled up a random function 2 or 5 times each for 1 second, and then compared the execution times; they'd probably be identical. All of these methods the current timestamp in relation to the date of their scheduled functions every frame, although `wait()` is bounded to a minimum execution time of 0.03 which changes based on throttling conditions. And that's exactly the difference, throttling. That's why if you care a lot about accuracy, you may prefer this module due to lack of inbuilt throttling. 
+There is not much difference between `CallScheduler`, `wait()` and `delay()` in terms of accuracy. If you scheduled up a random function 2 or 5 times each for 1 second, and then compared the execution times; they'd probably be identical. All of these methods check the current time, in relation to the date of their scheduled functions every frame. Although `wait()` is bounded to a minimum execution time of 0.03 which changes based on throttling conditions. And that's exactly the difference, throttling. That's why if you care a lot about accuracy, you may prefer this module due to lack of inbuilt throttling. 
 
 # That's everything.
 
