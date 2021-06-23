@@ -15,13 +15,13 @@ Roblox module that allows accurate scheduling of lua functions (calls) with more
 
 Grab the source code from `src/CallScheduler.lua`, and put it in ReplicatedStorage. Then you can require it, and use the variables it exposes through the module table:
 
+```lua
+Scheduler.Add(Time: number, Callback: function, ...)`
 
-`(function) Scheduler.Add(*Time: number, *Callback: function, ...)`
+Scheduler.Remove(Callback: function) `
 
-`(function) Scheduler.Remove(*Callback: function) `
-
-`(number) Scheduler.Jitter = 0.005`
-
+Scheduler.Jitter = 0.005`
+```
 Here is some example code:
 
 ```lua
