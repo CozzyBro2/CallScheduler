@@ -1,9 +1,15 @@
 # CallScheduler
 Roblox module that allows accurate scheduling of lua functions (calls) with more digestible syntax when compared to alternatives.
 
+## Notes
+
+* Detached from `lua-stuff` for easy editing, and I felt it deserved it's own repo.
+* Use the cool github pages site to read about this creation: https://cozzybro2.github.io/CallScheduler/ (W.I.P)
+* This is not intended to be an 'end-all' replacement for default roblox functions, this module is new and many kinks in it's functionality may not have been yet discovered, or are in progress of being resolved. By using this module you accept that I am not liable for any mishaps in gameplay that may arise from this fact.
+
 # How do I use it?
 
-Grab the source code from `src/CallScheduler.lua`, and put it in ReplicatedStorage. Then you can require it, and use the modules it exposes through the module table:
+Grab the source code from `src/CallScheduler.lua`, and put it in ReplicatedStorage. Then you can require it, and use the variables it exposes through the module table:
 
 
 `(function) Scheduler.Add(*Time: number, *Callback: function, ...)`
@@ -15,55 +21,48 @@ Grab the source code from `src/CallScheduler.lua`, and put it in ReplicatedStora
 Here is some example code:
 
 ```lua
--- something normal
+-- Code Sample: A normal schedule
+
 local Scheduler = require(...)
 
 local function SomeFunction()
 
 end
 
-Scheduler.Add(2, SomeFunction) -- schedules 'SomeFunction' to be called 2 seconds from now.
+Scheduler.Add(2, SomeFunction) -- schedules 'SomeFunction' to be called 2 seconds from now
 ```
 ```lua
--- a recurring function (similar to while wait() do)
+-- Code Sample: a recurring function (similar to while wait() do)
+
 local Scheduler = require(...)
 
 local function SomeFunction()
-    Scheduler.Add(2, SomeFunction) -- re-scheduling itself.
+    Scheduler.Add(2, SomeFunction) -- re-scheduling itself
 
-    -- Recurring task that happens every 2 seconds here.
+    -- Recurring task that happens every 2 seconds here
 end
 
-Scheduler.Add(2, SomeFunction) -- schedules 'SomeFunction' to be called 2 seconds from now.
+Scheduler.Add(2, SomeFunction) -- schedules 'SomeFunction' to be called 2 seconds from now
 
+--- when it's time to stop it:
 
-
--- after 5 seconds let's say
-
-Scheduler.Remove(SomeFunction) -- stops it from running anymore, can always be restarted by using the above function.
+Scheduler.Remove(SomeFunction) -- stops it from running anymore, can always be restarted by using the above function
 ```
 
 ```lua
--- a more hazardous example
+-- Code Sample: Yielding risk
+
 local Scheduler = require(...)
 
 local function YieldingFunction()
     SomeLongHttpCall()
 end
 
-Scheduler.Add(2, coroutine.wrap(YieldingFunction)) -- 'YieldingFunction' may or may not yield, wrap it in a new coroutine just in case to isolate it from the rest of the thread.
--- NOTE: Thread safety is not implemented in call scheduler, you will need to wrap anything that even has the potential to yield to guarantee execution time accuracy.
+Scheduler.Add(2, coroutine.wrap(YieldingFunction)) 
+-- Call scheduler does not implement 'Thread Safety' you will need to wrap any function that can potentially yield to guarantee things get scheduled without delay.
 ```
 
-## Notes
-
-* Detached from `lua-stuff` for easy editing, and I felt it deserved it's own repo.
-* Use the cool github pages site to read about this creation: https://cozzybro2.github.io/CallScheduler/
-* If you care at all for some reason, this is intended to replace `delay()` moreso than it is to replace `wait()`.
-
-
-
-## Why CallScheduler?
+## *Why* CallScheduler?
 
 CallScheduler is a module I created to address a few caveats with the default roblox functions that achieve something similar; (e.g `wait()`, `delay()`)
 I won't go too into specifics because this isn't a rant, but I will address some of the glaring issues with those functions:
