@@ -1,5 +1,5 @@
 # CallScheduler
-Roblox module that allows accurate scheduling of Lua functions (calls) with more digestible syntax when compared to alternatives.
+Roblox module that allows accurate scheduling of Lua functions (calls) with more flexible syntax than default roblox alternatives.
 
 ## Notes
 
@@ -83,17 +83,17 @@ In `delay()`'s case, it forcibly spawns your thread. The impact of this is much 
 
 Comparatively, my module's approach to this is a little bit less hidden. By default, it will just call the function you feed it, because it uses generic call syntax. this means you can feed it a function wrapped by `coroutine.wrap` and consequently control if you want to yield or not. (Applies to anything that can be called using `()` call syntax)  
 
-* Lack of customizability: As mentioned earlier, you can't customize `wait()` and `delay()` at all, this module provides customizability in the form of mutable state (see bulletpoint 1), and the ability to change the 'jitter' (`delay()` also implements a jitter, but you can't change it.) There's also some scalability given from the open-endedness of this module. You can add what you want if need be, throttling, etc. 
+* Lack of customizability: As mentioned earlier, you can't customize `wait()` and `delay()` at all, this module provides customizability in the form of mutable state (see bullet point 1), and the ability to change the 'jitter' (`delay()` also implements a jitter, but you can't change it.) There's also some scalability given from the open-endedness of this module. You can add what you want if need be, throttling, etc. 
 
 # What performance / usability boost can I expect?
 
-`CallScheduler` is not oriented around a boost in performance. But 'calls' themselves in LuaU are very fast, fast enough to outperform resuming yielded threads. (as of writing this. this also applies to `coroutine.wrap`)
+`CallScheduler` is not oriented around a boost in performance. But 'calls' themselves in LuaU are very fast, fast enough to outperform resuming yielded threads. (true as of writing this. Also applies to resuming threads wrapped with `coroutine.wrap`)
 
-If anything, you may introduce a little bit of CPU complexity due to having two forms of scheduler running in the background (`wait()` and `CallScheduler`). But so long as `wait()` is not used by you, the difference should be negligible enough to not have to worry over. 
+If anything, you may introduce a little bit of CPU complexity due to having two forms of scheduler running in the background (`wait()` and `CallScheduler`). But so long as `wait()` and `delay()` are not used by you, the difference will be negligible enough to not have to worry over. 
 
 The main benefit that comes from using this module is usability. With `wait()`, you will have to create new coroutined functions somewhere to account for the yielding, `delay()` will also usually require the construction of a literal instead, due to not being able to pass arguments. 
 
-Yes, you read right. You can pass arguments into the `Scheduler.Add()` function, to put this into perspective, instead of having to do this:
+Compared to my module, where you can pass arguments into the `Scheduler.Add()` function. To put the impact of this a little into perspective, instead of having to do this:
 
 ```lua
 delay(2, function()
@@ -110,7 +110,7 @@ Scheduler.Add(2, ImportantFunction, Important, StillImportant)
 
 This allows for slightly smaller code, which is often desirable for readability.
 
-Moving on to another significant example, say you have a `while wait(0.5)` loop that increments the stamina for every player by a little bit, and you have a module to control the state of this mechanic, `wait()` and `delay()` won't help you much here because they lack the aforementioned gimmick:
+Moving on to another significant example, say you have a `while wait(0.5)` loop that increments the stamina for every player by a little bit, and you have a module to control the state of that mechanic;  `wait()` and `delay()` despite both being used to schedule something here, do not achieve this without obvious flaws:
 
 ```lua
 local Module = {}
@@ -156,7 +156,7 @@ end
 function Module.Start(...)
     (...)
 
-    IncrementStamina()
+    Scheduler.Add(0.5, IncrementStamina)
 end
 
 function Module.Stop(...)
@@ -167,7 +167,7 @@ end
 
 return Module
 ```
-This code does not have the redundant time check quirk, and if for whatever reason the `IncrementStamina` function ever needed some arguments; the scalability is there. That's why I would recommend you use this module.
+This code does not have the redundant time check quirk, as well as needing to spawn a new thread. Also, if for whatever reason the `IncrementStamina` function ever needed some arguments; the scalability is there to change this without needing to make the code more complex. That's why I would recommend you use this module.
 
 ## About Accuracy
 
