@@ -20,7 +20,7 @@ Scheduler.Add(Time: number, Callback: function, ...)
 
 Scheduler.Remove(Callback: function)
 
-Scheduler.Jitter = 0.005`
+Scheduler.Jitter = 0.005
 ```
 Here is some example code:
 
