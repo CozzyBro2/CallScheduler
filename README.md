@@ -1,3 +1,7 @@
+# Archived / Deprecated
+
+This module has been superseeded by `task.delay()` and `task.wait()`, these library renditions of their older counterparts address every single caveat I have listed in this file and improve on it, rendering this module redundant. That is why it has been archived
+
 # CallScheduler
 Roblox module that allows accurate scheduling of Lua functions (calls) with more flexible syntax than default roblox alternatives.
 
